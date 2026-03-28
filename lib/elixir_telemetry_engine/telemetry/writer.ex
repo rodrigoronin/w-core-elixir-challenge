@@ -28,8 +28,13 @@ defmodule ElixirTelemetryEngine.Telemetry.Writer do
   end
 
   defp flush_to_db do
-    Cache.all() |> Enum.each(fn {node_id, data} ->
-      Telemetry.upsert_node_metric(node_id, data)
-    end)
+    case :ets.info(:w_core_telemetry_cache) do
+      :undefined ->
+        :noop
+      _ ->
+        Cache.all() |> Enum.each(fn {node_id, data} ->
+          Telemetry.upsert_node_metric(node_id, data)
+        end)
+    end
   end
 end
