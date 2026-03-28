@@ -118,4 +118,58 @@ defmodule ElixirTelemetryEngine.TelemetryTest do
       assert %Ecto.Changeset{} = Telemetry.change_node_metric(node_metric)
     end
   end
+
+  describe "dashboards" do
+    alias ElixirTelemetryEngine.Telemetry.Dashboard
+
+    import ElixirTelemetryEngine.TelemetryFixtures
+
+    @invalid_attrs %{name: nil}
+
+    test "list_dashboards/0 returns all dashboards" do
+      dashboard = dashboard_fixture()
+      assert Telemetry.list_dashboards() == [dashboard]
+    end
+
+    test "get_dashboard!/1 returns the dashboard with given id" do
+      dashboard = dashboard_fixture()
+      assert Telemetry.get_dashboard!(dashboard.id) == dashboard
+    end
+
+    test "create_dashboard/1 with valid data creates a dashboard" do
+      valid_attrs = %{name: "some name"}
+
+      assert {:ok, %Dashboard{} = dashboard} = Telemetry.create_dashboard(valid_attrs)
+      assert dashboard.name == "some name"
+    end
+
+    test "create_dashboard/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Telemetry.create_dashboard(@invalid_attrs)
+    end
+
+    test "update_dashboard/2 with valid data updates the dashboard" do
+      dashboard = dashboard_fixture()
+      update_attrs = %{name: "some updated name"}
+
+      assert {:ok, %Dashboard{} = dashboard} = Telemetry.update_dashboard(dashboard, update_attrs)
+      assert dashboard.name == "some updated name"
+    end
+
+    test "update_dashboard/2 with invalid data returns error changeset" do
+      dashboard = dashboard_fixture()
+      assert {:error, %Ecto.Changeset{}} = Telemetry.update_dashboard(dashboard, @invalid_attrs)
+      assert dashboard == Telemetry.get_dashboard!(dashboard.id)
+    end
+
+    test "delete_dashboard/1 deletes the dashboard" do
+      dashboard = dashboard_fixture()
+      assert {:ok, %Dashboard{}} = Telemetry.delete_dashboard(dashboard)
+      assert_raise Ecto.NoResultsError, fn -> Telemetry.get_dashboard!(dashboard.id) end
+    end
+
+    test "change_dashboard/1 returns a dashboard changeset" do
+      dashboard = dashboard_fixture()
+      assert %Ecto.Changeset{} = Telemetry.change_dashboard(dashboard)
+    end
+  end
 end

@@ -18,6 +18,7 @@ defmodule ElixirTelemetryEngineWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/dashboard", DashboardLive.Index
   end
 
   # Other scopes may use custom stacks.

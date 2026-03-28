@@ -35,4 +35,18 @@ defmodule ElixirTelemetryEngine.TelemetryFixtures do
 
     node_metric
   end
+
+  @doc """
+  Generate a dashboard.
+  """
+  def dashboard_fixture(attrs \\ %{}) do
+    {:ok, dashboard} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> ElixirTelemetryEngine.Telemetry.create_dashboard()
+
+    dashboard
+  end
 end
