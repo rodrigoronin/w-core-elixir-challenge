@@ -21,7 +21,7 @@ defmodule ElixirTelemetryEngine.Telemetry.Cache do
       [{^node_id, existing}] ->
         updated = existing |> merge(payload)
 
-        :ets.insert(@table, {node_id, payload})
+        :ets.insert(@table, {node_id, updated})
     end
   end
 
