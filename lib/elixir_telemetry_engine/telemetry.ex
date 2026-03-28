@@ -197,4 +197,24 @@ defmodule ElixirTelemetryEngine.Telemetry do
   def change_node_metric(%NodeMetric{} = node_metric, attrs \\ %{}) do
     NodeMetric.changeset(node_metric, attrs)
   end
+
+  def upsert_node_metric(node_id, data) do
+    import Ecto.Query
+
+    existing = from(node in NodeMetric, where: node.node_id == ^node_id) |> Repo.one()
+
+    attrs = %{
+      node_id: node_id,
+      status: data.status,
+      total_events_processed: data.event_count,
+      last_payload: data.last_payload,
+      last_seen_at: data.last_seen_at
+    }
+
+    case existing do
+      nil -> %NodeMetric{} |> NodeMetric.changeset(attrs) |> Repo.insert()
+
+      record -> record |> NodeMetric.changeset(attrs) |> Repo.update()
+    end
+  end
 end
