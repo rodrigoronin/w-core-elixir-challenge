@@ -64,7 +64,7 @@ defmodule ElixirTelemetryEngine.TelemetryTest do
 
     import ElixirTelemetryEngine.TelemetryFixtures
 
-    @invalid_attrs %{" status": nil, " total_events_process": nil, " last_payload": nil, " last_seen_at": nil}
+    @invalid_attrs %{" status": nil, " total_events_processed": nil, " last_payload": nil, " last_seen_at": nil}
 
     test "list_node_metrics/0 returns all node_metrics" do
       node_metric = node_metric_fixture()
@@ -77,11 +77,11 @@ defmodule ElixirTelemetryEngine.TelemetryTest do
     end
 
     test "create_node_metric/1 with valid data creates a node_metric" do
-      valid_attrs = %{" status": "some  status", " total_events_process": 42, " last_payload": %{}, " last_seen_at": ~U[2026-03-26 20:01:00Z]}
+      valid_attrs = %{" status": "some  status", " total_events_processed": 42, " last_payload": %{}, " last_seen_at": ~U[2026-03-26 20:01:00Z]}
 
       assert {:ok, %NodeMetric{} = node_metric} = Telemetry.create_node_metric(valid_attrs)
       assert node_metric. status == "some  status"
-      assert node_metric. total_events_process == 42
+      assert node_metric. total_events_processed == 42
       assert node_metric. last_payload == %{}
       assert node_metric. last_seen_at == ~U[2026-03-26 20:01:00Z]
     end
@@ -92,11 +92,11 @@ defmodule ElixirTelemetryEngine.TelemetryTest do
 
     test "update_node_metric/2 with valid data updates the node_metric" do
       node_metric = node_metric_fixture()
-      update_attrs = %{" status": "some updated  status", " total_events_process": 43, " last_payload": %{}, " last_seen_at": ~U[2026-03-27 20:01:00Z]}
+      update_attrs = %{" status": "some updated  status", " total_events_processed": 43, " last_payload": %{}, " last_seen_at": ~U[2026-03-27 20:01:00Z]}
 
       assert {:ok, %NodeMetric{} = node_metric} = Telemetry.update_node_metric(node_metric, update_attrs)
       assert node_metric. status == "some updated  status"
-      assert node_metric. total_events_process == 43
+      assert node_metric. total_events_processed == 43
       assert node_metric. last_payload == %{}
       assert node_metric. last_seen_at == ~U[2026-03-27 20:01:00Z]
     end

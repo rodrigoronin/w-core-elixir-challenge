@@ -29,7 +29,7 @@ defmodule ElixirTelemetryEngine.TelemetryFixtures do
          last_payload: %{},
          last_seen_at: ~U[2026-03-26 20:01:00Z],
          status: "some  status",
-         total_events_process: 42
+         total_events_processed: 42
       })
       |> ElixirTelemetryEngine.Telemetry.create_node_metric()
 

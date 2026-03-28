@@ -4,7 +4,7 @@ defmodule ElixirTelemetryEngine.Repo.Migrations.CreateNodeMetrics do
   def change do
     create table(:node_metrics) do
       add :status, :string
-      add :total_events_process, :integer
+      add :total_events_processed, :integer
       add :last_payload, :map
       add :last_seen_at, :utc_datetime
       add :node_id, references(:nodes, on_delete: :delete_all)
