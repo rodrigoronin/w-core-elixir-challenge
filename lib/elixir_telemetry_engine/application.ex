@@ -14,6 +14,9 @@ defmodule ElixirTelemetryEngine.Application do
        repos: Application.fetch_env!(:elixir_telemetry_engine, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:elixir_telemetry_engine, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: ElixirTelemetryEngine.PubSub},
+      ElixirTelemetryEngine.Telemetry.Cache,
+      ElixirTelemetryEngine.Telemetry.Ingestor,
+      ElixirTelemetryEngine.Telemetry.Writer,
       # Start a worker by calling: ElixirTelemetryEngine.Worker.start_link(arg)
       # {ElixirTelemetryEngine.Worker, arg},
       # Start to serve requests, typically the last entry
