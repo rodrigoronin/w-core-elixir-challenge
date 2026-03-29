@@ -17,6 +17,7 @@ defmodule ElixirTelemetryEngine.Application do
       ElixirTelemetryEngine.Telemetry.Cache,
       ElixirTelemetryEngine.Telemetry.Ingestor,
       ElixirTelemetryEngine.Telemetry.Writer,
+      ElixirTelemetryEngine.Telemetry.SensorSimulator,
       # Start a worker by calling: ElixirTelemetryEngine.Worker.start_link(arg)
       # {ElixirTelemetryEngine.Worker, arg},
       # Start to serve requests, typically the last entry
