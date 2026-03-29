@@ -10,6 +10,7 @@ defmodule ElixirTelemetryEngine.Telemetry.SensorSimulator do
 
   @impl true
   def init(_state) do
+    send(self(), :auto_start)
     {:ok, %{running: false}}
   end
 
@@ -33,6 +34,19 @@ defmodule ElixirTelemetryEngine.Telemetry.SensorSimulator do
 
   def handle_cast(:stop_simulation, state) do
     {:noreply, %{state | running: false}}
+  end
+
+  @impl true
+  def handle_info(:auto_start, state) do
+    case Telemetry.list_nodes() do
+      [] ->
+        Process.send_after(self(), :auto_start, 1000)
+        {:noreply, state}
+
+      _nodes ->
+        spawn_simulation()
+        {:noreply, %{state | running: true}}
+    end
   end
 
   defp spawn_simulation do
