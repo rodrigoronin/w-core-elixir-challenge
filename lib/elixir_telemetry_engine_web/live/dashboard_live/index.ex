@@ -3,6 +3,8 @@ defmodule ElixirTelemetryEngineWeb.DashboardLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    current_user = socket.assigns.current_scope.user
+
     if connected?(socket) do
       Phoenix.PubSub.subscribe(
         ElixirTelemetryEngine.PubSub,
@@ -10,7 +12,10 @@ defmodule ElixirTelemetryEngineWeb.DashboardLive.Index do
       )
     end
 
-    {:ok, assign(socket, nodes: load_nodes())}
+    {:ok,
+      socket
+      |> assign(:current_user, current_user)
+      |> assign(:nodes, load_nodes())}
   end
 
   defp load_nodes do
