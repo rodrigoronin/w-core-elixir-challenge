@@ -27,9 +27,7 @@ defmodule ElixirTelemetryEngineWeb.DashboardLive.Index do
   end
 
   @impl true
-  def handle_info(msg, socket) do
-    IO.inspect(msg, label: "LIVEVIEW RECEBEU")
-
+  def handle_info({:node_updated, _node_id}, socket) do
     {:noreply, assign(socket, nodes: load_nodes())}
   end
 
