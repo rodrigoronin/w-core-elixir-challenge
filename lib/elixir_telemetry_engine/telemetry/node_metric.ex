@@ -15,7 +15,7 @@ defmodule ElixirTelemetryEngine.Telemetry.NodeMetric do
   @doc false
   def changeset(node_metric, attrs) do
     node_metric
-    |> cast(attrs, [:status, :total_events_processed, :last_payload, :last_seen_at])
-    |> validate_required([:status, :total_events_processed, :last_seen_at])
+    |> cast(attrs, [:node_id, :status, :total_events_processed, :last_payload, :last_seen_at])
+    |> validate_required([:node_id, :status, :total_events_processed, :last_seen_at])
   end
 end

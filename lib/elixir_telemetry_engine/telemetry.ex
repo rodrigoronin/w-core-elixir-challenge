@@ -7,6 +7,12 @@ defmodule ElixirTelemetryEngine.Telemetry do
   alias ElixirTelemetryEngine.Repo
 
   alias ElixirTelemetryEngine.Telemetry.Node
+  alias ElixirTelemetryEngine.Telemetry.NodeMetric
+
+  def get_node_metric_by_node_id(node_id) do
+    from(nm in NodeMetric, where: nm.node_id == ^node_id)
+    |> Repo.one()
+  end
 
   @doc """
   Returns the list of nodes.
