@@ -20,8 +20,6 @@ defmodule ElixirTelemetryEngine.Telemetry.Ingestor do
 
   @impl true
   def handle_cast({:ingest, node_id, payload}, state) do
-    IO.puts("INGEST RECEIVED")
-
     Cache.upsert(node_id, payload)
 
     Phoenix.PubSub.broadcast(
