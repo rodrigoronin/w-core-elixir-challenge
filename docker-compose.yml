@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      - PHX_SERVER=true
+      - SECRET_KEY_BASE=e/gThNvxUiI6kZbgdrkjbC4GadvyHP/ZWlHSgFsBXi6SSaT6rxN90ZieRkAU9plR
+      - DATABASE_PATH=/app/data/elixir_telemetry_engine.db
+    volumes:
+      - ./data:/app/data
